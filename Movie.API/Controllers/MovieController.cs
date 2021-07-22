@@ -25,6 +25,7 @@ namespace Movie.API.Controllers {
             return res == null ? NotFound() : Ok(res);
         }
         [HttpPost]
+        [Authorize(Policy = "ClientPolicy")]
         public async Task<ActionResult<int>> Post(Models_Data.Movie movie) {
             var res = (await _mediatorMovies.Send(new Requests.AddNewMovie.Command(movie))).Id;
             return Ok(res);

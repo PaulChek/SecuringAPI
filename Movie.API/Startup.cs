@@ -24,7 +24,7 @@ namespace Movie.API {
             services.AddScoped<IMoviesRepo, MovieRepository>();
             services.AddMediatR(typeof(Startup).Assembly);
 
-            //JWT
+            //JWT AUTH
             services
                 .AddAuthentication("Bearer")
                     .AddJwtBearer("Bearer", o => {
@@ -34,6 +34,10 @@ namespace Movie.API {
                         };
                     });
 
+
+            services.AddAuthorization(o => {
+                o.AddPolicy("ClientPolicy", o => o.RequireClaim("client_id", "MovieClient"));
+            });
             #endregion
 
 

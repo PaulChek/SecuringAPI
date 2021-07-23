@@ -7,7 +7,7 @@ using System.Net.Http.Json;
 using System.Threading.Tasks;
 
 namespace Movie.Client.Services {
-    public class MovieService : IService {
+    public class MovieService : IMovieService {
         private readonly HttpClient _client;
 
         public MovieService(HttpClient client) {
@@ -19,7 +19,7 @@ namespace Movie.Client.Services {
         }
 
         public async Task<IEnumerable<MovieModel>> GetAllMoviesAsync() {
-          return await _client.GetFromJsonAsync<IEnumerable<MovieModel>>("https://localhost:5001/api/Movie");
+          return await _client.GetFromJsonAsync<IEnumerable<MovieModel>>("Movie");
         }
 
         public Task<MovieModel> GetById(int id) {

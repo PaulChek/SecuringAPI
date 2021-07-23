@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 
 namespace Movie.Client.Controllers {
     public class MovieController : Controller {
-        private readonly IService _movieService;
+        private readonly IMovieService _movieService;
 
-        public MovieController(IService movieService) {
+        public MovieController(IMovieService movieService) {
             _movieService = movieService;
         }
 

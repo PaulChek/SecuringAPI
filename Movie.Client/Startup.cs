@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Movie.Client.Services;
+using System;
 
 namespace Movie.Client {
     public class Startup {
@@ -12,15 +13,19 @@ namespace Movie.Client {
         }
 
         public IConfiguration Configuration { get; }
-
+          
         public void ConfigureServices(IServiceCollection services) {
 
+
+            #region MyServices
+
+
+            services.AddHttpClient<IMovieService, MovieService>(c => 
+                c.BaseAddress = new Uri(Configuration.GetConnectionString("Movie")));
+
+            #endregion
+
             services.AddControllersWithViews();
-
-
-            services.AddHttpClient<MovieService>();
-            services.AddScoped<IService, MovieService>();
-
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
@@ -29,7 +34,6 @@ namespace Movie.Client {
             }
             else {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
